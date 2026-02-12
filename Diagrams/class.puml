@@ -1,0 +1,48 @@
+@startuml class
+class Customer {
+  +customer_id: int
+  +fitting_room_id: int
+  +loyalty_card: int
+  +request_support:str
+}
+ 
+class Employee {
+  +employee_id: int
+  +availability: str
+}
+ 
+class ClothingItem {
+  +barcode: int
+  +description: str
+  +brand: str
+  +photos:list
+  +available_colors: str
+  +price: float
+}
+ 
+class NotificationService {
+  +service_id: int
+}
+
+class ClothingManagementSystem {
+  +cms_id: int
+}
+
+class SupportSystem {
+  +customer
+  +employee
+  +clothingitem
+  +notificationservice
+  +ClothingManagementSystem
+  +sends_support_message()
+  +available_employee()
+  +help_succeed()
+  +clothing_informations()
+  +request_sent()
+}
+ 
+ClothingItem "1..*" -- "1" Customer
+Employee "0..1" -- "1" Customer
+Employee "0..*" -- "1" NotificationService
+ ClothingManagementSystem "1" -- "0..*" ClothingItem
+@enduml
