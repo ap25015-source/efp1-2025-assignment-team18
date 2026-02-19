@@ -19,30 +19,19 @@ class ClothingItem {
   +available_colors: str
   +price: float
 }
- 
-class NotificationService {
-  +service_id: int
-}
-
-class ClothingManagementSystem {
-  +cms_id: int
-}
 
 class SupportSystem {
   +customer
   +employee
   +clothingitem
-  +notificationservice
-  +ClothingManagementSystem
   +sends_support_message()
   +available_employee()
   +help_succeed()
-  +clothing_informations()
-  +request_sent()
+  +sends_clothing_information()
+  +sends_request()
+  +responds_to_request()
 }
  
 ClothingItem "1..*" -- "1" Customer
 Employee "0..1" -- "1" Customer
-Employee "0..*" -- "1" NotificationService
- ClothingManagementSystem "1" -- "0..*" ClothingItem
 @enduml

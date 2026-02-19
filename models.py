@@ -29,24 +29,19 @@ class Employee: # Represents an Employee
                 f"({self.date} {self.time}) "
                 f"[{self.current_participants}/{self.capacity}]")
 
-class NotificationService:
-    def __init__(self, service_id: int):
-        self.service_id = service_id
 
 #μπορεί να το χρειαστούμε
     def __str__(self) -> str:
         return (f"Booking {self.booking_id} - {self.member.name} "
                 f"-> {self.session.title} ({self.session.date} {self.session.time})")
     
-    class ClothingItem: # Represents a garment
-        def __init__(self, barcode: int, description: str, brand: str, photos: list, available_colours: str, price: float):
-            self.barcode = barcode
-            self.description = description
-            self.brand = brand 
-            self.photos = photos
-            self.available_colours = available_colours
-            self.price = price
+class ClothingItem: # Represents a garment
+    def __init__(self, clothingitem_id:int, barcode: int, description: str, brand: str, photos: list, available_colours: str, price: float):
+        self.clothingitem_id= clothingitem_id
+        self.barcode = barcode
+        self.description = description
+        self.brand = brand 
+        self.photos = photos
+        self.available_colours = available_colours
+        self.price = price
 
-    class ClothingManagementSystem:
-        def __init__(self, cms_id: int):
-            self. cms_id = cms_id
