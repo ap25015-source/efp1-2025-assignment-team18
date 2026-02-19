@@ -1,22 +1,25 @@
 @startuml class
 class Customer {
   +customer_id: int
-  +fitting_room_id: int
-  +loyalty_card: int
-  +request_support:str
+  +loyalty_card:str
+  +name:str
+  +phone_number:int
 }
  
 class Employee {
   +employee_id: int
-  +availability: str
+  +availability:bool
+  +name:str
+  +phone_number:int
 }
  
 class ClothingItem {
-  +barcode: int
+  +barcode:int
+  +clothingitem_id:int
   +description: str
   +brand: str
   +photos:list
-  +available_colors: str
+  +available_colours: str
   +price: float
 }
 

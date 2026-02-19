@@ -1,7 +1,7 @@
 from models import Customer, Employee, ClothingItem
 
 
-class SupportSystem
+class SupportSystem:
     def __init__(self):
         self.customers: list[Customer] = [] # List to store customers
         self.employees: list[Employee] = [] # List to store employees
@@ -14,7 +14,7 @@ class SupportSystem
         self._seed_demo_data() 
 
     def _seed_demo_data(self) -> None:
-        """Δημιουργεί 2-3 έτοιμους υπαλλήλους για τις δοκιμές."""
+        #Δημιουργεί 2 έτοιμους υπαλλήλους, ρούχα, πελάτες για τις δοκιμές.
         self.add_employee("Maria", "6973703687")
         self.add_employee("Spyros", "6985367592")
         self.add_clothingitem("benetton", "5296347", "red", "t-shirt","25", url="https://www.kathararoucha.gr/gynaikeio-aplo-mplouzaki/to-kokkino/2XL/?gad_source")
@@ -33,7 +33,7 @@ class SupportSystem
     def list_clothingitems(self) -> list[ClothingItem]:
         return self.clothingitems # Return the list of clothingitems
 
-    def find_clothingitem_by_id(self, clothing_id: int) -> clothingitem | None:
+    def find_clothingitem_by_id(self, clothing_id: int) -> ClothingItem | None:
         for s in self.clothingitems:
             if s.clothingitem_id == clothing_id: # Match found
                 return s # Return the clothingitem
@@ -43,7 +43,7 @@ class SupportSystem
 
     def add_customer(self, name: str, phone_number: int, loyalty_card: str) -> Customer:
         customer = Customer (self._next_customer_id, name, phone_number, loyalty_card)
-        self.customer.append(customer) # Add customer to the list
+        self.customers.append(customer) # Add customer to the list
         self._next_clothingitem_id += 1 # Increment customer ID for next customer
         return customer
 
@@ -57,6 +57,12 @@ class SupportSystem
         return customer
 
     # ------- employees ---------
+
+    def add_employee(self, name: str, phone_number: int, availability: True) -> Employee:
+        employee = Employee (self._next_employee_id, name, phone_number, availability)
+        self.employees.append(employee) # Add employee to the list
+        self._next_employee_id += 1 # Increment employee ID for next employee
+        return employee
 
     def find_and_assign_employee(self) -> int:
         for employee in self.employees:
@@ -75,16 +81,3 @@ class SupportSystem
         print("Δεν βρέθηκε διαθέσιμος υπάλληλος.")
         return None 
                 
-
-
-
-        # TODO: αυξήστε συμμετέχοντες και δημιουργήστε Booking αντικείμενο
-        session.add_participant() # Increment participants
-        booking = Booking(self._next_booking_id, member, session) # Create booking
-        self.bookings.append(booking) # Add booking to the list
-        self._next_booking_id += 1 # Increment booking ID
-        return booking
-
-    def bookings_for_member(self, member: Member) -> list[Booking]:
-        # TODO: επιστρέψτε λίστα bookings για αυτό το μέλος
-        return [b for b in self.bookings if b.member == member]
