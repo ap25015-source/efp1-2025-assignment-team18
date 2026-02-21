@@ -6,8 +6,16 @@ class Customer: # Represents a customer
         self.loyalty_card_id=loyalty_card_id 
 
     def __str__(self) -> str: # String representation of the customer
-        return f"{self.customer_id}: {self.fitting_room_id} {self.loyalty_card_id} {self.request_support}"
+        return f"{self.customer_id}: {self.loyalty_card_id} {self.name} {self.phone_number}" 
 
+class FittingRoom: # Represents a fitting room
+    def __init__(self, fitting_room_id: int):
+        self.fitting_room_id = fitting_room_id
+
+    def get_id(self) -> int:
+     #Returns the ID of the fitting room.
+        return self.fitting_room_id   
+        
 
 class Employee: # Represents an Employee
     def __init__(self, employee_id: int, availability: bool, name: str, phone_number: int):

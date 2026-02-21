@@ -23,6 +23,10 @@ class ClothingItem {
   +price: float
 }
 
+class Fitting_room{
+  +Fitting_room_id:int
+}
+
 class SupportSystem {
   +customer
   +employee

@@ -1,4 +1,4 @@
-from models import Customer, Employee, ClothingItem
+from models import Customer, Employee, ClothingItem, FittingRoom
 
 
 class SupportSystem:
@@ -6,10 +6,12 @@ class SupportSystem:
         self.customers: list[Customer] = [] # List to store customers
         self.employees: list[Employee] = [] # List to store employees
         self.clothingitems: list[ClothingItem] = [] # List to store clothingitems
+        self.fitting_rooms: list[FittingRoom] = [] # List 
 
         self._next_customer_id = 1 # Internal counter for customer IDs
         self._next_employee_id = 1 # Internal counter for employee IDs
         self._next_clothingitem_id = 1 # Internal counter for clothingitem IDs
+        self._next_fitting_room_id= 1 # Internal counter for fitting room IDs
 
         self._seed_demo_data() 
 
@@ -21,6 +23,7 @@ class SupportSystem:
         self.add_clothingitem("adidas", "2579321", "blue", "tracksuit", "50", url="https://www.aboutyou.gr/p/adidas-sportswear/panteloni-formas-essentials-26229905?vid")
         self.add_customer("GR-LOYAL-100234", "Maria","6973658923")
         self.add_customer("GR-LOYAL-100569", "Theoni", "6982456781")
+        
  
     # ------- clothingitems ---------
 
@@ -41,17 +44,17 @@ class SupportSystem:
 
     # ------- customers with loyalty card ---------
 
-    def add_customer(self, name: str, phone_number: int, loyalty_card: str) -> Customer:
-        customer = Customer (self._next_customer_id, name, phone_number, loyalty_card)
+    def add_customer(self, name: str, phone_number: int, loyalty_card_id: str) -> Customer:
+        customer = Customer (self._next_customer_id, name, phone_number, loyalty_card_id)
         self.customers.append(customer) # Add customer to the list
         self._next_clothingitem_id += 1 # Increment customer ID for next customer
         return customer
 
-    def find_or_create_customer(self, name: str, phone_number: int, loyalty_card:str) -> Customer:
+    def find_or_create_customer(self, name: str, phone_number: int, loyalty_card_id:str) -> Customer:
         for m in self.customers:
-            if m.loyalty_card == loyalty_card:
+            if m.loyalty_card_id == loyalty_card_id:
                 return m
-        customer = Customer(self._next_customer_id, name, phone_number, loyalty_card)
+        customer = Customer(self._next_customer_id, name, phone_number, loyalty_card_id)
         self.customers.append(customer)
         self._next_customer_id += 1
         return customer
@@ -77,6 +80,7 @@ class SupportSystem:
                 # 3. Επιστρέφουμε το ID του πρώτου διαθέσιμου υπαλλήλου 
                 return employee.emp_id()
             
+         
     # Αν η λούπα τελειώσει και δεν βρεθεί διαθέσιμος υπάλληλος
         print("Δεν βρέθηκε διαθέσιμος υπάλληλος.")
         return None 
