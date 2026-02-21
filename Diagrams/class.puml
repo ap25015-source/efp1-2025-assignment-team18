@@ -21,16 +21,32 @@ class ClothingItem {
   +photos:list
   +available_colours: str
   +price: float
+} 
+
+class FittingRoom {
+  +fitting_room_id: int
+  }
+
+class CustomerHelpService{
+  +customer_help_service_id:int
+  +customer: Customer
+  +employee: Employee
+  +clothingitem: ClothingItem
+  +fittingroom: FittingRoom
+}
+ 
+class NotificationMessage{
+  +notification_message_id:int
+  +sms:str
 }
 
-class Fitting_room{
-  +Fitting_room_id:int
-}
-
-class SupportSystem {
-  +customer
-  +employee
-  +clothingitem
+class CustomerSupportSystem {
+  +customers
+  +employees
+  +fittingrooms
+  +clothingitems
+  +notificationmessages
+  +customerhelpservices
   +sends_support_message()
   +available_employee()
   +help_succeed()

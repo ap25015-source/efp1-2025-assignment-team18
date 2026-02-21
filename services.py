@@ -1,17 +1,21 @@
-from models import Customer, Employee, ClothingItem, FittingRoom
+from models import Customer, Employee, ClothingItem, FittingRoom, NotificationMessage, CustomerHelpService
 
 
-class SupportSystem:
+class CustomerSupportSystem:
     def __init__(self):
         self.customers: list[Customer] = [] # List to store customers
         self.employees: list[Employee] = [] # List to store employees
         self.clothingitems: list[ClothingItem] = [] # List to store clothingitems
-        self.fitting_rooms: list[FittingRoom] = [] # List 
+        self.fittingrooms: list[FittingRoom] = [] # List to store fittingrooms
+        self.notificationmessages: list[NotificationMessage]=[] # List to store notificationmessages
+        self.customerhelpservices: list[CustomerHelpService]=[] # List to store customerhelpservice
 
         self._next_customer_id = 1 # Internal counter for customer IDs
         self._next_employee_id = 1 # Internal counter for employee IDs
         self._next_clothingitem_id = 1 # Internal counter for clothingitem IDs
         self._next_fitting_room_id= 1 # Internal counter for fitting room IDs
+        self._next_notification_message_id= 1 # Internal counter for notification message IDs
+        self._next_customer_help_service_id= 1 # Internal counter for customer help service IDs
 
         self._seed_demo_data() 
 
@@ -23,6 +27,8 @@ class SupportSystem:
         self.add_clothingitem("adidas", "2579321", "blue", "tracksuit", "50", url="https://www.aboutyou.gr/p/adidas-sportswear/panteloni-formas-essentials-26229905?vid")
         self.add_customer("GR-LOYAL-100234", "Maria","6973658923")
         self.add_customer("GR-LOYAL-100569", "Theoni", "6982456781")
+        self.add_fittingroom("1")
+        self.add_fittingroom("2")
         
  
     # ------- clothingitems ---------
@@ -79,9 +85,22 @@ class SupportSystem:
                 
                 # 3. Επιστρέφουμε το ID του πρώτου διαθέσιμου υπαλλήλου 
                 return employee.emp_id()
-            
          
     # Αν η λούπα τελειώσει και δεν βρεθεί διαθέσιμος υπάλληλος
         print("Δεν βρέθηκε διαθέσιμος υπάλληλος.")
         return None 
-                
+    
+    def add_fittingroom(self, fitting_room_id: int) -> FittingRoom:
+        fittingroom = FittingRoom (self._next_fitting_room_id)
+        self.fittingrooms.append(fittingroom) # Add fitting room  to the list
+        self._next_fitting_room_id += 1 # Increment fitting room ID for next fittingroom
+        return fittingroom            
+    
+    def add_customerhelpservice(self, customer_help_service_id:int, customer: Customer, employee: Employee, 
+        clothingitem: ClothingItem,fittingroom: FittingRoom) -> CustomerHelpService:
+        customerhelpservice= CustomerHelpService(self._next_customer_help_service_id, self.customer, self.employee, self.clothingitem, self.fittingroom)
+        self.customerhelpservices.append(customerhelpservice) # Add customer help service to the list 
+        self._next_customer_help_service_id += 1 # Increment customer help service ID for next customer help service
+        return customerhelpservice
+    
+    

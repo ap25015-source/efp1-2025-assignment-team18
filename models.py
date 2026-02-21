@@ -28,7 +28,7 @@ class Employee: # Represents an Employee
         # TODO: επιστρέψτε True αν υπάρχει διαθεσιμότητα  υπαλλήλου
         return self.availability
     
-    def emp_id(self) -> int:
+    def get_id(self) -> int:
         # Επιστρέφει το ID του υπαλλήλου
         return self.employee_id
 
@@ -43,3 +43,23 @@ class ClothingItem: # Represents a garment
         self.available_colours = available_colours
         self.price = price
 
+    def get_id(self) -> int:
+        # Επιστρέφει το ID του ρούχου
+        return self.clothingitem_id
+    
+class NotificationMessage: # Represents a notification message
+    def __init__(self, notification_message_id: int, sms: str):
+        self.notification_message_id= notification_message_id
+        self.sms= sms
+  
+    def get_id(self) -> int:
+        # Επιστρέφει το ID του μυμήματος για βοήθεια
+        return self.clnotification_message_id
+    
+class CustomerHelpService: # Represents helpservice offered to customer 
+    def __init__(self,customer_help_service_id:int, customer: Customer, employee: Employee,clothingitem: ClothingItem, fittingroom: FittingRoom):
+        self.customer_help_service_id= customer_help_service_id
+        self.customer=customer
+        self.employee=employee
+        self.clothingitem=clothingitem
+        self.fittingroom=fittingroom
