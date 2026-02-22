@@ -42,6 +42,9 @@ class ClothingItem: # Represents a garment
         self.available_colours = available_colours
         self.price = price
 
+    def __str__(self) -> str:
+        return f"{self.brand} {self.description} {self.available_colours} {self.price}"
+    
     def get_id(self) -> int:
         # Επιστρέφει το ID του ρούχου
         return self.clothingitem_id
