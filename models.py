@@ -34,12 +34,11 @@ class Employee: # Represents an Employee
 
 
 class ClothingItem: # Represents a garment
-    def __init__(self, clothingitem_id:int, barcode: int, description: str, brand: str, photos: list, available_colours: str, price: float):
+    def __init__(self, clothingitem_id:int, barcode: int, description: str, brand: str, available_colours: str, price: float):
         self.clothingitem_id= clothingitem_id
         self.barcode = barcode
         self.description = description
         self.brand = brand 
-        self.photos = photos
         self.available_colours = available_colours
         self.price = price
 

@@ -21,22 +21,22 @@ class CustomerSupportSystem:
 
     def _seed_demo_data(self) -> None:
         #Δημιουργεί 2 έτοιμους υπαλλήλους, ρούχα, πελάτες για τις δοκιμές.
-        self.add_employee("Maria", "6973703687")
-        self.add_employee("Spyros", "6985367592")
-        self.add_clothingitem("benetton", "5296347", "red", "t-shirt","25", url="https://www.kathararoucha.gr/gynaikeio-aplo-mplouzaki/to-kokkino/2XL/?gad_source")
-        self.add_clothingitem("adidas", "2579321", "blue", "tracksuit", "50", url="https://www.aboutyou.gr/p/adidas-sportswear/panteloni-formas-essentials-26229905?vid")
+        self.add_employee("Maria", "6973703687", True)
+        self.add_employee("Spyros", "6985367592", False)
+        self.add_clothingitem("5296347", "t-shirt", "benetton", "red","25")
+        self.add_clothingitem("2579321", "tracksuit", "adidas", "blue", "50")
         self.add_customer("GR-LOYAL-100234", "Maria","6973658923")
         self.add_customer("GR-LOYAL-100569", "Theoni", "6982456781")
-        self.add_fittingroom("1")
-        self.add_fittingroom("2")
+        self.add_fittingroom(1)
+        self.add_fittingroom(2)
         self.add_notificationmessage("yes")
         self.add_notificationmessage("no")
 
         
     # ------- clothingitems ---------
 
-    def add_clothingitem(self, barcode: int, description: str, brand: str, photos:list, available_colours: str, price:float ) -> ClothingItem:
-        clothingitem =ClothingItem(self._next_clothingitem_id, barcode, description, brand, photos, available_colours, price)
+    def add_clothingitem(self, barcode: int, description: str, brand: str, available_colours: str, price:float ) -> ClothingItem:
+        clothingitem =ClothingItem(self._next_clothingitem_id, barcode, description, brand, available_colours, price)
         self.clothingitems.append(clothingitem) # Add clothingitems to the list
         self._next_clothingitem_id += 1 # Increment clothingitem ID for next clothingitem
         return clothingitem
@@ -44,9 +44,9 @@ class CustomerSupportSystem:
     def list_clothingitems(self) -> list[ClothingItem]:
         return self.clothingitems # Return the list of clothingitems
 
-    def find_clothingitem_by_id(self, clothing_id: int) -> ClothingItem | None:
+    def find_clothingitem_by_id(self, clothingitem_id: int) -> ClothingItem | None:
         for s in self.clothingitems:
-            if s.clothingitem_id == clothing_id: # Match found
+            if s.clothingitem_id == clothingitem_id: # Match found
                 return s # Return the clothingitem
         return None # No match found
 
@@ -55,7 +55,7 @@ class CustomerSupportSystem:
     def add_customer(self, name: str, phone_number: int, loyalty_card_id: str) -> Customer:
         customer = Customer (self._next_customer_id, name, phone_number, loyalty_card_id)
         self.customers.append(customer) # Add customer to the list
-        self._next_clothingitem_id += 1 # Increment customer ID for next customer
+        self._next_clothingitem_id +=1 # Increment customer ID for next customer
         return customer
 
     def find_or_create_customer(self, name: str, phone_number: int, loyalty_card_id:str) -> Customer:
@@ -69,7 +69,7 @@ class CustomerSupportSystem:
 
     # ------- employees ---------
 
-    def add_employee(self, name: str, phone_number: int, availability: True) -> Employee:
+    def add_employee(self, name: str, phone_number: int, availability: bool) -> Employee:
         employee = Employee (self._next_employee_id, name, phone_number, availability)
         self.employees.append(employee) # Add employee to the list
         self._next_employee_id += 1 # Increment employee ID for next employee

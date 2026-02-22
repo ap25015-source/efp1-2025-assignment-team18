@@ -18,7 +18,6 @@ class ClothingItem {
   +clothingitem_id:int
   +description: str
   +brand: str
-  +photos:list
   +available_colours: str
   +price: float
 } 
