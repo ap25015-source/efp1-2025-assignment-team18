@@ -47,6 +47,10 @@ class ClothingItem: # Represents a garment
         # Επιστρέφει το ID του ρούχου
         return self.clothingitem_id
     
+    def get_barcode(self) -> int:
+        # Επιστρέφει το barcode του ρούχου
+        return self.barcode
+    
 class NotificationMessage: # Represents a notification message
     def __init__(self, notification_message_id: int, sms: str):
         self.notification_message_id= notification_message_id
@@ -54,7 +58,7 @@ class NotificationMessage: # Represents a notification message
   
     def get_id(self) -> int:
         # Επιστρέφει το ID του μυμήματος για βοήθεια
-        return self.clnotification_message_id
+        return self.notification_message_id
     
 class CustomerHelpService: # Represents helpservice offered to customer 
     def __init__(self,customer_help_service_id:int, customer: Customer, employee: Employee,clothingitem: ClothingItem, fittingroom: FittingRoom):

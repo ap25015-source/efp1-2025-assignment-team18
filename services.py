@@ -29,8 +29,10 @@ class CustomerSupportSystem:
         self.add_customer("GR-LOYAL-100569", "Theoni", "6982456781")
         self.add_fittingroom("1")
         self.add_fittingroom("2")
+        self.add_notificationmessage("yes")
+        self.add_notificationmessage("no")
+
         
- 
     # ------- clothingitems ---------
 
     def add_clothingitem(self, barcode: int, description: str, brand: str, photos:list, available_colours: str, price:float ) -> ClothingItem:
@@ -78,29 +80,42 @@ class CustomerSupportSystem:
             # Έλεγχος αν ο υπάλληλος είναι διαθέσιμος
             if employee.is_available():
                 # 1. Στέλνουμε το SMS στον υπάλληλο
-                print(f"Στάλθηκε SMS στον υπάλληλο με ID: {employee.emp_id()}")
+                print(f"Στάλθηκε SMS στον υπάλληλο με ID: {employee.get_id()}")
                 
                 # 2. Αλλάζουμε τη διαθεσιμότητα σε False (δεν είναι πλέον διαθέσιμος ο υπάλληλος)
                 employee.availability = False
                 
                 # 3. Επιστρέφουμε το ID του πρώτου διαθέσιμου υπαλλήλου 
-                return employee.emp_id()
+                return employee.get_id()
          
     # Αν η λούπα τελειώσει και δεν βρεθεί διαθέσιμος υπάλληλος
         print("Δεν βρέθηκε διαθέσιμος υπάλληλος.")
         return None 
     
-    def add_fittingroom(self, fitting_room_id: int) -> FittingRoom:
+    def add_fittingroom(self, fittingroom: int) -> FittingRoom:
         fittingroom = FittingRoom (self._next_fitting_room_id)
-        self.fittingrooms.append(fittingroom) # Add fitting room  to the list
+        self.fittingrooms.append(fittingroom) # Add fitting room  to the list fittingroom
         self._next_fitting_room_id += 1 # Increment fitting room ID for next fittingroom
-        return fittingroom            
+        return fittingroom     
+
+    def add_notificationmessage(self, notificationmessage: int, sms:str) -> NotificationMessage:
+        notificationmessage = NotificationMessage (self._next_notification_message_id, sms)
+        self.notificationmessages.append(notificationmessage) # Add notification message to the list notificationmessage
+        self._next_notification_message_id += 1 # Increment notification message ID for next notification message
+        return notificationmessage      
     
-    def add_customerhelpservice(self, customer_help_service_id:int, customer: Customer, employee: Employee, 
-        clothingitem: ClothingItem,fittingroom: FittingRoom) -> CustomerHelpService:
-        customerhelpservice= CustomerHelpService(self._next_customer_help_service_id, self.customer, self.employee, self.clothingitem, self.fittingroom)
+    def customerhelpservice(self, customerhelpservice:int, customer: Customer, employee: Employee, clothingitem: ClothingItem, fittingroom: FittingRoom) -> CustomerHelpService:
+         # Αν δεν υπάρχει υπάλληλος
+        if employee is None:
+            print("Δεν βρέθηκε διαθέσιμη βοήθεια. Το πρόγραμμα τερματίζεται.")
+            CustomerSupportSystem.exit()
+        customerhelpservice= CustomerHelpService(self._next_customer_help_service_id, customer, employee, clothingitem, fittingroom)
         self.customerhelpservices.append(customerhelpservice) # Add customer help service to the list 
         self._next_customer_help_service_id += 1 # Increment customer help service ID for next customer help service
+       
+        # Ο υπάλληλος ολοκλήρωσε τη βοήθεια → γίνεται ξανά διαθέσιμος
+        employee.is_available = True
+        print("Help succeeded")
         return customerhelpservice
     
     

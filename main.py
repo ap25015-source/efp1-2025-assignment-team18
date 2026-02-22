@@ -1,54 +1,36 @@
 # main.py
 
-from services import SupportSystem
+from services import CustomerSupportSystem
 
 
 def main():
-    system = SupportSystem()
+    system = CustomerSupportSystem()
     print("Καλωσήρθατε στο σύστημα Yποστήριξης του Εξυπνου Δοκιμαστηρίου")
 
-    name = input("Όνομα πελάτη: ")
+    barcode = input("barcode: ")
     fitting_room_id = input("ID Δοκιμαστηρίου:")
+    loyalty_card_id= input("ID loyalty card:")
 
-    customer = system.find_or_create_customer(name, fitting_room_id=)
+    CustomerSupportSystem = system.find_or_get_help(fitting_room_id, barcode, loyalty_card_id)
 
     while True:
         print("\n--- Μενού ---")
-        print("1. Προβολή διαθέσιμων μαθημάτων")
-        print("2. Κράτηση μαθήματος")
-        print("3. Προβολή κρατήσεων μου")
+        print("1. Παροχή Πληροφοριών Ρούχου")
+        print("2. Υποστήριξη")
         print("0. Έξοδος")
 
         choice = input("Επιλογή: ")
 
         if choice == "1":
-            sessions = system.list_sessions()
-            for s in sessions:
+            barcode = system.clothingitem_by_id()
+            for s in barcode:
                 print(s)
 
         elif choice == "2":
-            sessions = system.list_sessions()
-            for s in sessions:
+            fitting_room_id = system.customerhelpservice()
+            for s in fitting_room_id:
                 print(s)
-            try:
-                session_id = int(input("Δώσε id μαθήματος για κράτηση: "))
-            except ValueError:
-                print("Μη έγκυρο id.")
-                continue
-
-            booking = system.book_session(member, session_id)
-            if booking:
-                print("Η κράτηση ολοκληρώθηκε:")
-                print(booking)
-
-        elif choice == "3":
-            bookings = system.bookings_for_member(member)
-            if not bookings:
-                print("Δεν έχετε κρατήσεις.")
-            else:
-                for b in bookings:
-                    print(b)
-
+            
         elif choice == "0":
             print("Έξοδος από το σύστημα. Αντίο!")
             break
