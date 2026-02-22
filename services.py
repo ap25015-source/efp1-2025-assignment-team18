@@ -22,7 +22,7 @@ class CustomerSupportSystem:
     def _seed_demo_data(self) -> None:
         #Δημιουργεί 2 έτοιμους υπαλλήλους, ρούχα, πελάτες για τις δοκιμές.
         self.add_employee("Maria", "6973703687", False)
-        self.add_employee("Spyros", "6985367592", False)
+        self.add_employee("Spyros", "6985367592", True)
         self.add_clothingitem("5296347", "t-shirt", "benetton", "red","25")
         self.add_clothingitem("2579321", "tracksuit", "adidas", "blue", "50")
         self.add_customer("GR-LOYAL-100234", "Maria","6973658923")
@@ -70,7 +70,7 @@ class CustomerSupportSystem:
     # ------- employees ---------
 
     def add_employee(self, name: str, phone_number: int, availability: bool) -> Employee:
-        employee = Employee (self._next_employee_id, name, phone_number, availability)
+        employee = Employee (self._next_employee_id, availability, name, phone_number)
         self.employees.append(employee) # Add employee to the list
         self._next_employee_id += 1 # Increment employee ID for next employee
         return employee
@@ -111,10 +111,11 @@ class CustomerSupportSystem:
          for employee in self.employees:
             if employee.is_available ():
                 available_emp = employee
-            else:
-                print("Δεν βρέθηκε διαθέσιμη βοήθεια.")
-                return None #ΕΔΩ σταματάει σωστά αν όλοι είναι False
-            break
+                break
+
+         if available_emp is None:
+            print("Δεν βρέθηκε διαθέσιμη βοήθεια.")
+            return None #ΕΔΩ σταματάει σωστά αν όλοι είναι False
         
         #2 Βρίσκουμε το δοκιμαστήριο
          fittingroom = None
@@ -124,7 +125,7 @@ class CustomerSupportSystem:
                 break # Μόλις το βρούμε, σταματάμε το ψάξιμο
 
         # Δημιουργούμε την υπηρεσία βοήθειας
-         customerhelpservice= CustomerHelpService(self._next_customer_help_service_id, customer, available_emp, clothingitem, fittingroom)
+         customerhelpservice= CustomerHelpService(self._next_customer_help_service_id, customer, employee, clothingitem, fittingroom)
          self.customerhelpservices.append(customerhelpservice) # Add customer help service to the list 
          self._next_customer_help_service_id += 1 # Increment customer help service ID for next customer help service
 
